@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<svg viewbox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <!-- basic ico view sides -->
+  <!-- TODO: polylines connecting rounded corners -->
+  <rect x="4" y="6" rx="6" ry="6" width="28" height="38" fill="#00C000"/>
+  <rect x="2" y="3" rx="6" ry="6" width="28" height="38" fill="#D0D0CE"/>
+  <!-- face -->
+  <rect x="0" y="0" rx="6" ry="6" width="28" height="38" fill="#D0D0CE"/>
+  <rect x="0" y="0" rx="6" ry="6" width="28" height="38" fill="none" stroke="#222"/>
+</svg>
