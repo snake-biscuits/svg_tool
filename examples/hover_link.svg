@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<svg viewbox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <style>
+  path {
+    fill: black;
+  }
+  path:hover {
+    fill: blue;
+  }
+  </style>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/SVG">
+    <path d="M 16 16 C 16 48, 48 48, 48 16" />
+  </a>
+</svg>
