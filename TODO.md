@@ -24,6 +24,7 @@
 ## We Need:
  * CSS Parser
  * 2D Vector math w/ lerping for Bezier Curves
+   - `Tag` bounds
  * Clearly communicate limitations to users
    - map out a list of common tags & attributes
 
@@ -43,3 +44,7 @@
 ### `<rect>`
  * `rx` & `ry`
    - 2 different radii for rounded corners
+
+
+## `raster`
+so much work...

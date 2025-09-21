@@ -1,4 +1,4 @@
-__all__ = ["tag", "utils"]
+__all__ = ["tags", "utils"]
 
-from . import tag
+from . import tags
 from . import utils
