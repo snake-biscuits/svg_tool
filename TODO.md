@@ -21,12 +21,17 @@
  * Node Graph with connecting lines
 
 
-## We Need:
- * CSS Parser
- * 2D Vector math w/ lerping for Bezier Curves
-   - `Tag` bounds
- * Clearly communicate limitations to users
-   - map out a list of common tags & attributes
+## Parsing
+```
+parse
+ > base (Style, Transform, Shape)
+ > parents (Group, Svg, Mask, Gradient)
+   manage children and inheritance (style, transform, %age units etc.)
+ > circle (Circle, Ellipse)
+ > poly (Polygon, PolyLine)
+ > rect (Rect)
+ > path (Line, Path) [Route]
+```
 
 ### `<path>`
  * `d`
@@ -40,10 +45,19 @@
    - need to determine interior shape
  * `stroke-width`
    - need normalised paralell axis to curve
+ * bounds `@property`
+   - iirc freyaholmer has resources on how to calculate this
+ * `vec2` + lerp to draw `stroke`
+   - need trig to work out inside & outside areas
 
 ### `<rect>`
  * `rx` & `ry`
    - 2 different radii for rounded corners
+
+### CSS
+ * `style` attribute
+ * inheritance rules
+ * override via direct assignment
 
 
 ## `raster`

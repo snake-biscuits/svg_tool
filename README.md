@@ -9,4 +9,8 @@ If you want to rasterise a `.svg`, try these:
    uses Inkscape to convert `.svg` to `.png`
 
  * [pillow_svg](https://github.com/gribbg/pillow_svg)
-   adda a `SvgImagePlugin` to `Pillow`
+   adds a `SvgImagePlugin` to `Pillow`
+
+ * [XSLT](https://www.w3.org/TR/xslt/)
+   XML transformation language
+   [libxslt](https://gitlab.gnome.org/GNOME/libxslt) provides the `xsltproc` CLI tool

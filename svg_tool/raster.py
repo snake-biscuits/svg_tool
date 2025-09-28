@@ -1,88 +1,61 @@
 from __future__ import annotations
-from typing import Dict, List
 
 import PIL
 
-from . import tags
+from . import parse
+from .utils import vector
 
 
 class Layer:
-    # cache
-    masks: Dict[str, Layer]
-    gradients: Dict[str, Layer]
-    children: List[Layer]
-    # state
-    tag: tags.Tag
-    # bounds: ...  # ass.AABB but 2D?
-    mask: str  # url(#mask)
-    gradient: str  # url(#gradient)
-    transform: tags.Transform  # ass.vec2 math
-    # image
+    gradient: parse.parents.Gradient
+    mask: parse.parents.Mask
     mode: str = "RGBA"
+    shape: parse.Shape
 
-    @property
-    def size(self) -> (int, int):
-        # TODO: tag -> bounds -> size
-        # NOTE: need to round up to ints for PIL
-        raise NotImplementedError()
+    def __init__(self):
+        self.gradient = None
+        self.mask = None
 
-    # TODO: self.tag.children -> self.children
-    # def ???:
-    #     for tag in self.tag.children:
-    #         # TODO: sort / filter
-    #         # -- script
-    #         # -- style
-    #         # -- <g> group
-    #         # -- mask
-    #         # -- gradient
-
-    # TODO: cache until state changes
     @property
     def image(self) -> PIL.Image:
         canvas = PIL.Image.new(self.mode, self.size)
         artist = Artist(canvas)
-        artist.draw(self.tag)
-        raise NotImplementedError()
-        # TODO: composite child layers w/ paste
-        # -- simple way of handling transforms
-        for layer in self.children:
-            # TODO: paste mask
-            # TODO: apply gradient
-            canvas.paste(layer.image, layer.bounds)
+        artist.draw(self.shape)
         return canvas
 
 
 class Artist:
-    # cursor: vector.vec2  # from ass
+    cursor: vector.vec2
 
     def __init__(self, canvas: PIL.Image):
         self.pen = PIL.ImageDraw(canvas)
-        # self.cursor = vector.vec2()
+        self.cursor = vector.vec2(0, 0)
 
-    def draw(self, tag: tags.Tag):
+    def draw(self, shape: parse.Shape):
         # TODO: masking
         # -- have to split the mask <g> off into it's own Svg
         # -- then use Svg(mask).image to get the mask for Image.paste()
-        match tag.type:
-            case "circle":
-                self.draw_circle_fill(tag.center, tag.radius, tag.fill)
-                self.draw_circle_stroke(
-                    tag.center, tag.radius, tag.stroke, tag.thickness)
-            case "line":
-                ...
+        match shape.tag:
+            case "circle": self.draw_circle(shape)
+            case "elipse": self.draw_elipse(shape)
+            case "line": self.draw_line(shape)
             case "path":
-                # TODO: step by step lines & arcs w/ cursor position state
-                ...
-            case "rect":
-                ...
+                for instruction in shape.route.instructions:
+                    ...
+                    # TODO: function pointer table to draw each instruction
+                    # instruction = ("mode", *args: List[float])
+            case "rect": self.draw_rect(shape)
 
     # NOTE: each drawing should update self.cursor
     # -- how? idk!
-    def draw_circle_fill(self, center, radius, colour):
-        ...
+    def draw_circle(self, shape):
+        xy = shape.origin
+        radius = shape.radius
+        outline = shape.style.stroke
+        fill = shape.style.fill
+        width = shape.style.thickness
+        self.pen.circle(xy, radius, fill, outline, width)
 
-    def draw_circle_stroke(self, center, radius, colour, thickness):
-        ...
-
-    def draw_line(self, start, end, colour):
-        self.pen.line((*start, *end), fill=colour)
+    def draw_line(self, shape):
+        raise NotImplementedError()
+        self.pen.line((start, end), fill)

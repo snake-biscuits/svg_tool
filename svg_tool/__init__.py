@@ -1,4 +1,9 @@
-__all__ = ["tags", "utils"]
+__all__ = [
+    "parse", "raster", "utils",
+    "Svg"]
 
-from . import tags
+from . import parse
+from . import raster
 from . import utils
+
+from .parse import Svg

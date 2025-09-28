@@ -6,7 +6,12 @@ from lxml import etree
 from . import base
 
 
-class Path(base.Tag):
+class Line(base.Shape):
+    # TODO
+    ...
+
+
+class Path(base.Shape):
     route: Route
 
     def __init__(self, *args, route=None, **kwargs):
