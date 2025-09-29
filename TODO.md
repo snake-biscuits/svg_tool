@@ -62,21 +62,3 @@ parse
 
 ## `raster`
 so much work...
-
-
-## `colour`
-Colour spaces + CSS parser foundation
- * `colour.cie`
-   - `Lab`
-   - `XYZ`
- * `colour.Ok`
-   - `Lab`
-   - `Lch`
-   - `LMS`
- * `colour.srgb`
-   - `RGB`
- * `colour.x11`
-   - `hex_names`
-   - `named_colours`
-
-> TODO: copy from `PartitionDB` (javascript implementation)
