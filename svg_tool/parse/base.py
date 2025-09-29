@@ -5,7 +5,7 @@ from typing import List
 
 from lxml import etree
 
-from ..utils.colour import Colour
+# from ..utils import colour
 from ..utils import physics2d
 from ..utils import vector
 
@@ -15,18 +15,15 @@ from ..utils import vector
 
 
 class Style:
-    fill: Colour = Colour.from_css("transparent")
-    stroke: Colour = Colour.from_css("black")
-    thickness: float = 1.0
+    fill: str = "transparent"
+    stroke: str = "black"
+    thickness: str
 
     def __init__(self, fill=None, stroke=None, thickness=None):
+        # TODO: colour.sRGB.from_css() all colours
         self.fill_colour = self.fill_colour if fill is None else fill
         self.stroke_colour = self.stroke_colour if stroke is None else stroke
         self.thickness = self.thickness if thickness is None else thickness
-
-    @classmethod
-    def from_css(cls, css: str) -> Style:
-        raise NotImplementedError()
 
     @classmethod
     def from_xml(cls, tag: etree.Element) -> Style:
