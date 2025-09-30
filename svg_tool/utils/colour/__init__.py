@@ -45,3 +45,10 @@ from .x11 import hex_names, named_colours
 # -- handy for debugging / validating
 # -- DearPyGui graphs
 # -- PyOpenGL 3D representation
+
+# NOTE: colour spaces are wierd
+# -- linear RGB maps the gamma curve of a mid-1990s CRT monitor
+# -- LMS maps long, medium & short wavelengths which stimulate cone cells
+# -- D65 represents the white point of a 6504 Kelvin black body
+# -- in other words, the colour of sunlight filtered through earth's atmosphere
+# -- tl;dr: we're emulating a human looking at a CRT on a clear & sunny day
