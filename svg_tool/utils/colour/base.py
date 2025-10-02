@@ -12,19 +12,19 @@ class Colour:
     # NOTE: polar hue channels use a 0 -> 360 range
     alpha: float
 
-    # __slots__ = [..., "alpha"]
+    # _channels = [..., "alpha"]
 
     def __init__(self, *args, alpha=1, **kwargs):
         # TODO: move asserts to tests/ `ColourClass.test_spec`
-        assert len(self.__slots__) == 4
-        assert self.__slots__[-1] == "alpha"
+        assert len(self._channels) == 4
+        assert self._channels[-1] == "alpha"
         # get attrs
         channels = {"alpha": alpha}
         channels.update({
             attr: value
-            for attr, value in zip(self.__slots__, args)})
+            for attr, value in zip(self._channels, args)})
         channels.update(kwargs)
-        assert all(slot in channels for slot in self.__slots__)
+        assert all(channel in channels for channel in self._channels)
         # TODO: use set.difference to tell user which channels are missing
         for attr, value in channels.items():
             setattr(self, attr, value)
@@ -48,18 +48,22 @@ class Colour:
         return hash(tuple(self))
 
     def __iter__(self):
-        return iter([getattr(slot) for slot in self.__slots__])
+        return iter([
+            getattr(self, channel)
+            for channel in self._channels])
 
     def __len__(self):
         return 4
 
     def as_polar(self) -> List[float]:
+        """Lab/UV -> Lch"""
         L, a, b, alpha = self
         chroma = math.sqrt(a ** 2 + b ** 2)
         hue = math.degrees(math.atan2(b, a))
         return (L, chroma, hue, alpha)
 
     def as_cartesian(self) -> List[float]:
+        """Lch -> Lab/UV"""
         L, chroma, hue, alpha = self
         a = chroma * math.cos(math.radians(hue))
         b = chroma * math.sin(math.radians(hue))

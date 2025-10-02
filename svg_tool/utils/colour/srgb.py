@@ -4,12 +4,12 @@ from . import base
 
 
 class sRGB(base.Colour):
+    _channels = ["red", "green", "blue", "alpha"]
+
     red: float  # 0 -> 1
     green: float  # 0 -> 1
     blue: float  # 0 -> 1
     alpha: float  # 0 -> 1
-
-    __slots__ = ["red", "green", "blue", "alpha"]
 
     def as_hex(self) -> str:
         red, green, blue, alpha = [
@@ -50,12 +50,12 @@ class sRGB(base.Colour):
 
 
 class LinearRGB:
+    _channels = ["red", "green", "blue", "alpha"]
+
     red: float  # 0 -> 1
     green: float  # 0 -> 1
     blue: float  # 0 -> 1
     alpha: float  # 0 -> 1
-
-    __slots__ = ["red", "green", "blue", "alpha"]
 
     def as_sRGB(self) -> sRGB:
         return sRGB(*[

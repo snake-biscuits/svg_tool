@@ -11,7 +11,7 @@ class Lab(base.Colour):
     b: float  # -0.4 -> 0.4
     alpha: float  # 0 -> 1
 
-    __slots__ = ["lightness", "a", "b", "alpha"]
+    _channels = ["lightness", "a", "b", "alpha"]
 
     # TODO:
     # -- as_sRGB
@@ -25,7 +25,7 @@ class Lch(base.Colour):
     hue: float  # 0 -> 360deg
     alpha: float  # 0 -> 1
 
-    __slots__ = ["lightness", "chroma", "hue", "alpha"]
+    _channels = ["lightness", "chroma", "hue", "alpha"]
 
     def as_OkLab(self) -> Lab:
         return Lab(*self.as_cartesian())
@@ -41,6 +41,6 @@ class LMS(base.Colour):
     short: float  # ? -> ?
     alpha: float  # 0 -> 1
 
-    __slots__ = ["long", "medium", "short", "alpha"]
+    _channels = ["long", "medium", "short", "alpha"]
 
     ...

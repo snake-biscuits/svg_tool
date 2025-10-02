@@ -153,12 +153,12 @@ hex_names = {
     "#9ACD32": "yellowgreen"}
 
 named_colours = {
-    name: srgb.RGB.from_hex(hex_code)
+    name: srgb.sRGB.from_hex(hex_code)
     for hex_code, name in hex_names.items()}
 
 # transparent & none
 named_colours.update({
-    name: srgb.RGB(0, 0, 0, alpha=0)
+    name: srgb.sRGB(0, 0, 0, alpha=0)
     for name in ("none", "transparent")})
 
 # NOTE: in a gradient, transparent should be consider as alpha-premultiplied

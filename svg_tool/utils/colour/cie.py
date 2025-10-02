@@ -7,12 +7,12 @@ from . import base
 
 
 class Lab(base.Colour):
+    _channels = ["lightness", "a", "b", "alpha"]
+
     lightness: float  # 0 -> 1
     a: float  # -0.4 -> 0.4
     b: float  # -0.4 -> 0.4
     alpha: float  # 0 -> 1
-
-    __slots__ = ["lightness", "a", "b", "alpha"]
 
     @staticmethod
     def f(t):
@@ -50,13 +50,15 @@ class Lab(base.Colour):
         return cls(L, a, b, xyz.alpha)
 
 
+# NOTE: CIELUV also exists, and uses the CIELch(uv) colour space (HCL)
 class Lch(base.Colour):
+    _channels = ["lightness", "chroma", "hue", "alpha"]
+
+    """CIELch(ab) / Polar CIELab"""
     lightness: float  # 0 -> 1
     chroma: float  # 0 -> 0.4
     hue: float  # 0 -> 360deg
     alpha: float  # 0 -> 1
-
-    __slots__ = ["lightness", "chroma", "hue", "alpha"]
 
     def as_CIELab(self) -> Lab:
         return Lab(*self.as_cartesian())
@@ -72,7 +74,7 @@ class XYZ(base.Colour):
     z: float  # 0 -> 1
     alpha: float  # 0 -> 1
 
-    __slots__ = ["x", "y", "z", "alpha"]
+    _channels = ["x", "y", "z", "alpha"]
 
     # TODO: basic matrix transforms
     # -- as_LinearRGB
