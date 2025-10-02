@@ -26,6 +26,9 @@ class Path(base.Shape):
         return out
 
 
+# NOTE: a route can contain multiple move instructions
+# -- this can be used to create inverted sections inside a fill area
+# -- example: `https://prismjs.com/` page logo
 class Route:
     """<path d="..."> representation"""
     instructions = List[Tuple[str, float]]
